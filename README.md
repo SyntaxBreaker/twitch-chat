@@ -32,7 +32,7 @@ Install dependencies
 Start the application
 
 ```bash
-  npm run dev
+  npm run start
 ```
   
 ## Authors
