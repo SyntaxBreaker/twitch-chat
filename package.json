@@ -1,5 +1,5 @@
 {
-  "description": "A foundation for scalable desktop apps",
+  "description": "TwitchChat is an app that allows you to read a real-time Twitch chat",
   "author": "SyntaxBreaker",
   "main": "./src/main/main.ts",
   "scripts": {
