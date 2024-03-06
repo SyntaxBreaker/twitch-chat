@@ -1,5 +1,5 @@
 # TwitchChat
-TwitchChatApp is an app that allows you to read a real-time Twitch chat.
+TwitchChat is an app that allows you to read a real-time Twitch chat.
 
 
 ## Features
