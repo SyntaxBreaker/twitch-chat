@@ -140,7 +140,7 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "Twitch Chat App",
+    "productName": "TwitchChat",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
