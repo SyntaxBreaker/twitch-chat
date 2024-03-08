@@ -1,0 +1,21 @@
+@import './variables';
+
+.tabs {
+  height: 48px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  &__button {
+    border: none;
+    background-color: transparent;
+    height: 32px;
+    width: 32px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
