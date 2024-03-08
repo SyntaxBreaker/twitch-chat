@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+body {
+  padding: 8px 8px 0 8px;
+}
+
 main {
-  height: 100vh;
+  min-height: calc(100vh - 56px);
+  height: 1px;
 }
