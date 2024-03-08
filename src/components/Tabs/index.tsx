@@ -22,7 +22,7 @@ const CHANNELS = [
   {
     id: '4',
     name: 'Someone',
-  }
+  },
 ];
 
 function Tabs() {

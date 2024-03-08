@@ -1,7 +1,7 @@
-import "../../styles/Tab.scss";
+import '../../styles/Tab.scss';
 
 function Tab({ channel }: { channel: string }) {
-  return <button className="tab">{channel}</button>
+  return <button className="tab">{channel}</button>;
 }
 
 export default Tab;

@@ -1,5 +1,5 @@
 import Tab from '../Tab';
-import "../../styles/TabList.scss";
+import '../../styles/TabList.scss';
 
 interface IProps {
   channels: IChannels[];
