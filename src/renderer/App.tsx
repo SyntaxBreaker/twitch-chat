@@ -1,20 +1,15 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
-
-function Hello() {
-  return (
-    <main>
-      <h1>Twitch Chat App</h1>
-    </main>
-  );
-}
+import '../styles/App.scss';
+import Homepage from '../pages/Homepage';
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <main>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+        </Routes>
+      </Router>
+    </main>
   );
 }
