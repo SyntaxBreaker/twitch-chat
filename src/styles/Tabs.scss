@@ -2,11 +2,18 @@
 
 .tabs {
   height: 48px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: calc(100% - 48px);
+  }
 
   &__button {
     border: none;
