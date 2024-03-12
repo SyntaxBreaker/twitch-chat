@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import files from '../utils/files';
 
 class AppUpdater {
   constructor() {
@@ -29,6 +30,21 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('addChannel', (_, data) => {
+  const channel = data.toLowerCase();
+  if (!files.checkIfFileExists('channels.json')) {
+    files.addFile('channels.sjon');
+    files.addChannel('channels.json', channel);
+  } else {
+    files.addChannel('channels.json', channel);
+  }
+});
+
+ipcMain.on('readChannels', (event, _) => {
+  const channels = files.readChannels('channels.json');
+  event.reply('readChannels', channels);
 });
 
 if (process.env.NODE_ENV === 'production') {

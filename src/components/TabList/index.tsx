@@ -3,12 +3,7 @@ import '../../styles/TabList.scss';
 import React from 'react';
 
 interface IProps {
-  channels: IChannels[];
-}
-
-interface IChannels {
-  id: string;
-  name: string;
+  channels: string[];
 }
 
 const TabList = React.forwardRef<HTMLDivElement, IProps>(
@@ -17,9 +12,7 @@ const TabList = React.forwardRef<HTMLDivElement, IProps>(
 
     return (
       <div className="tablist" ref={ref}>
-        {channels.map((channel) => (
-          <Tab channel={channel.name} key={channel.id} />
-        ))}
+        {channels?.map((channel) => <Tab channel={channel} key={channel} />)}
       </div>
     );
   },

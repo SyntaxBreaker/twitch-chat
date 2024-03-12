@@ -13,6 +13,8 @@ function Modal({
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    window.electron.ipcRenderer.sendMessage('addChannel', nickname);
+    window.electron.ipcRenderer.sendMessage('readChannels');
     setIsModalOpen(false);
   };
 
