@@ -2,10 +2,18 @@ import fs from 'fs';
 
 const files = {
   addFile(file: string) {
-    fs.writeFileSync(file, JSON.stringify({}));
+    fs.writeFileSync(file, JSON.stringify({ channels: [] }));
   },
   checkIfFileExists(file: string) {
     if (fs.existsSync(file)) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  checkIfChannelExists(channel: string) {
+    const { channels } = this.readChannels('channels.json');
+    if (channels.includes(channel)) {
       return true;
     } else {
       return false;
@@ -16,6 +24,7 @@ const files = {
     if (!channels) {
       fs.writeFileSync(file, JSON.stringify({ channels: [channel] }));
     } else {
+      if(this.checkIfChannelExists(channel)) return;
       fs.writeFileSync(
         file,
         JSON.stringify({ channels: [...channels, channel] }),
@@ -25,14 +34,10 @@ const files = {
   readChannels(file: string) {
     if (this.checkIfFileExists('channels.json')) {
       const channels = fs.readFileSync(file, 'utf-8');
-      if (channels.length > 0) {
-        return JSON.parse(channels);
-      } else {
-        return [];
-      }
+      return JSON.parse(channels);
     } else {
       this.addFile('channels.json');
-      return [];
+      return { channels: [] };
     }
   },
 };
