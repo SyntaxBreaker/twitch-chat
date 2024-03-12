@@ -83,56 +83,60 @@ const CHANNELS = [
     name: 'Sirius',
   },
   {
-    "id": "19",
-    "name": "Eclipse"
+    id: '19',
+    name: 'Eclipse',
   },
   {
-    "id": "20",
-    "name": "Supernova"
+    id: '20',
+    name: 'Supernova',
   },
   {
-    "id": "21",
-    "name": "Aurora Borealis"
+    id: '21',
+    name: 'Aurora Borealis',
   },
   {
-    "id": "22",
-    "name": "Pegasus"
+    id: '22',
+    name: 'Pegasus',
   },
   {
-    "id": "23",
-    "name": "Comet"
+    id: '23',
+    name: 'Comet',
   },
   {
-    "id": "24",
-    "name": "Spectra"
+    id: '24',
+    name: 'Spectra',
   },
   {
-    "id": "25",
-    "name": "Andromeda"
+    id: '25',
+    name: 'Andromeda',
   },
   {
-    "id": "26",
-    "name": "Nebula"
+    id: '26',
+    name: 'Nebula',
   },
   {
-    "id": "27",
-    "name": "Asteria"
+    id: '27',
+    name: 'Asteria',
   },
   {
-    "id": "28",
-    "name": "Stellar"
+    id: '28',
+    name: 'Stellar',
   },
   {
-    "id": "29",
-    "name": "Quasar"
+    id: '29',
+    name: 'Quasar',
   },
   {
-    "id": "30",
-    "name": "Cosmos"
-  }
+    id: '30',
+    name: 'Cosmos',
+  },
 ];
 
-function Tabs() {
+function Tabs({
+  setIsModalOpen,
+}: {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const myRef = useRef<HTMLDivElement>(null);
 
   const scrollTabs = (direction: 'left' | 'right') => {
@@ -158,7 +162,7 @@ function Tabs() {
           <img src={rightArrow} alt="" />
         </button>
       </div>
-      <button className="tabs__button">
+      <button className="tabs__button" onClick={() => setIsModalOpen(true)}>
         <img src={addIcon} />
       </button>
     </nav>
