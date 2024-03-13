@@ -29,13 +29,23 @@ function Tabs({
   return (
     <nav className="tabs">
       <div className="tabs__container">
-        <button className="tablist__button" onClick={() => scrollTabs('left')}>
-          <img src={leftArrow} alt="" />
-        </button>
+        {channels.length > 0 && (
+          <button
+            className="tablist__button"
+            onClick={() => scrollTabs('left')}
+          >
+            <img src={leftArrow} alt="" />
+          </button>
+        )}
         <TabList channels={channels} ref={myRef} />
-        <button className="tablist__button" onClick={() => scrollTabs('right')}>
-          <img src={rightArrow} alt="" />
-        </button>
+        {channels.length > 0 && (
+          <button
+            className="tablist__button"
+            onClick={() => scrollTabs('right')}
+          >
+            <img src={rightArrow} alt="" />
+          </button>
+        )}
       </div>
       <button className="tabs__button" onClick={() => setIsModalOpen(true)}>
         <img src={addIcon} />

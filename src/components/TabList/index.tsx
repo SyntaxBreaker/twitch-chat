@@ -11,7 +11,10 @@ const TabList = React.forwardRef<HTMLDivElement, IProps>(
     const { channels } = props;
 
     return (
-      <div className="tablist" ref={ref}>
+      <div
+        className={channels.length > 0 ? 'tablist' : 'tablist--empty'}
+        ref={ref}
+      >
         {channels?.map((channel) => <Tab channel={channel} key={channel} />)}
       </div>
     );
