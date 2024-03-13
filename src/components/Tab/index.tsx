@@ -1,7 +1,12 @@
+import { Link } from 'react-router-dom';
 import '../../styles/Tab.scss';
 
 function Tab({ channel }: { channel: string }) {
-  return <button className="tab">{channel}</button>;
+  return (
+    <Link to={`/${channel}`} className="tab">
+      {channel}
+    </Link>
+  );
 }
 
 export default Tab;
