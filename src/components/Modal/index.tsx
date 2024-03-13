@@ -26,6 +26,7 @@ function Modal({
         onChange={(event) => setNickname(event.target.value)}
         placeholder="Enter a nickname"
         className="modal__input"
+        autoFocus
       />
       <button type="submit" className="modal__button">
         Add Channel
