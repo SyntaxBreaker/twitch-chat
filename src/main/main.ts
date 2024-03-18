@@ -15,6 +15,9 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import files from '../utils/files';
+import MessageManager from '../utils/MessageManager';
+
+const messageManager = new MessageManager('messages.json');
 
 class AppUpdater {
   constructor() {
@@ -39,6 +42,10 @@ ipcMain.on('addChannel', (_, data) => {
 ipcMain.on('readChannels', (event, _) => {
   const channels = files.readChannels('channels.json');
   event.reply('readChannels', channels);
+});
+
+ipcMain.on('addMessage', (_, data) => {
+  messageManager.addMessage(data);
 });
 
 if (process.env.NODE_ENV === 'production') {

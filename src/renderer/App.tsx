@@ -5,6 +5,7 @@ import Tabs from '../components/Tabs';
 import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
 import Channel from '../pages/Channel';
+import tmi from 'tmi.js';
 
 export default function App() {
   const [channels, setChannels] = useState<string[]>([]);
@@ -16,6 +17,26 @@ export default function App() {
     });
     window.electron.ipcRenderer.sendMessage('readChannels');
   }, []);
+
+  useEffect(() => {
+    const client = new tmi.Client({
+      channels: channels,
+    });
+
+    client.connect();
+
+    client.on('message', (channel, tags, message, self) => {
+      const data = {
+        channel: channel.replace('#', ''),
+        nickname: tags['display-name'],
+        mod: tags.mod === undefined ? 0 : +tags.mod,
+        sub: tags.subscriber === undefined ? 0 : +tags.subscriber,
+        vip: tags.vip === undefined ? 0 : +tags.vip,
+        message: message,
+      };
+      window.electron.ipcRenderer.sendMessage('addMessage', data);
+    });
+  }, [channels]);
 
   return (
     <Router>
