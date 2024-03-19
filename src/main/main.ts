@@ -14,9 +14,10 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import files from '../utils/files';
+import ChannelManager from '../utils/ChannelManager';
 import MessageManager from '../utils/MessageManager';
 
+const channelManager = new ChannelManager('channels.json');
 const messageManager = new MessageManager('messages.json');
 
 class AppUpdater {
@@ -31,16 +32,11 @@ let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('addChannel', (_, data) => {
   const channel = data.toLowerCase();
-  if (!files.checkIfFileExists('channels.json')) {
-    files.addFile('channels.sjon');
-    files.addChannel('channels.json', channel);
-  } else {
-    files.addChannel('channels.json', channel);
-  }
+  channelManager.addChannel(channel);
 });
 
 ipcMain.on('readChannels', (event, _) => {
-  const channels = files.readChannels('channels.json');
+  const channels = channelManager.readChannels();
   event.reply('readChannels', channels);
 });
 
