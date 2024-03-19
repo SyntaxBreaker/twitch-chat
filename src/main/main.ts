@@ -19,6 +19,7 @@ import MessageManager from '../utils/MessageManager';
 
 const channelManager = new ChannelManager('channels.json');
 const messageManager = new MessageManager('messages.json');
+let currentChannel: string;
 
 class AppUpdater {
   constructor() {
@@ -40,8 +41,20 @@ ipcMain.on('readChannels', (event, _) => {
   event.reply('readChannels', channels);
 });
 
-ipcMain.on('addMessage', (_, data) => {
+ipcMain.on('addMessage', (event, data) => {
   messageManager.addMessage(data);
+  if (data.channel === currentChannel) {
+    event.reply('addMessage', currentChannel);
+  }
+});
+
+ipcMain.on('setCurrentChannel', (_, data) => {
+  currentChannel = data.toLowerCase();
+});
+
+ipcMain.on('readMessagesFromChannel', (event, data) => {
+  const messages = messageManager.readMessagesFromChannel(data);
+  event.reply('readMessagesFromChannel', messages);
 });
 
 if (process.env.NODE_ENV === 'production') {

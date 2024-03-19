@@ -80,4 +80,11 @@ export default class MessageManager {
       return false;
     }
   }
+
+  readMessagesFromChannel(channel: string) {
+    const messages: IFileContent[] = JSON.parse(
+      fs.readFileSync(this.filename, 'utf-8'),
+    );
+    return messages.filter((obj) => obj.channel === channel)[0]['messages'];
+  }
 }

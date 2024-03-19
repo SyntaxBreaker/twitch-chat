@@ -34,6 +34,12 @@ export default function App() {
         vip: tags.vip ?? false,
         message: message,
       };
+      window.electron.ipcRenderer.on('addMessage', (args: any) => {
+        window.electron.ipcRenderer.sendMessage(
+          'readMessagesFromChannel',
+          args,
+        );
+      });
       window.electron.ipcRenderer.sendMessage('addMessage', data);
     });
   }, [channels]);
