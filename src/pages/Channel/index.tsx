@@ -1,15 +1,7 @@
 import { useParams } from 'react-router-dom';
 import MessageList from '../../components/MessageList';
 import { useEffect, useState } from 'react';
-
-interface IMessages {
-  nickname: string;
-  message: string;
-  mod: boolean;
-  sub: boolean;
-  vip: boolean;
-}
-[];
+import { IMessages } from '../../types/globalTypes';
 
 function Channel() {
   const [messages, setMessages] = useState<null | IMessages>(null);
