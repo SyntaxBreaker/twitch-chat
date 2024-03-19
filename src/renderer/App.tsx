@@ -29,9 +29,9 @@ export default function App() {
       const data = {
         channel: channel.replace('#', ''),
         nickname: tags['display-name'],
-        mod: tags.mod === undefined ? 0 : +tags.mod,
-        sub: tags.subscriber === undefined ? 0 : +tags.subscriber,
-        vip: tags.vip === undefined ? 0 : +tags.vip,
+        mod: tags.mod,
+        sub: tags.subscriber,
+        vip: tags.vip ?? false,
         message: message,
       };
       window.electron.ipcRenderer.sendMessage('addMessage', data);
