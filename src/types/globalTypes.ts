@@ -1,5 +1,5 @@
 interface IMessage {
-  channel: string;
+  channel?: string;
   nickname: string;
   mod: number;
   sub: number;
@@ -18,13 +18,4 @@ interface IFileContent {
   }[];
 }
 
-interface IMessages {
-  nickname: string;
-  message: string;
-  mod: boolean;
-  sub: boolean;
-  vip: boolean;
-}
-[];
-
-export { IMessage, IFileContent, IMessages };
+export { IMessage, IFileContent };

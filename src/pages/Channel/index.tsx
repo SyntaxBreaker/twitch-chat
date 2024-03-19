@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom';
 import MessageList from '../../components/MessageList';
 import { useEffect, useState } from 'react';
-import { IMessages } from '../../types/globalTypes';
+import { IMessage } from '../../types/globalTypes';
 
 function Channel() {
-  const [messages, setMessages] = useState<null | IMessages>(null);
+  const [messages, setMessages] = useState<null | IMessage[]>(null);
 
   const { channel } = useParams();
 
   useEffect(() => {
     window.electron.ipcRenderer.on('readMessagesFromChannel', (args) => {
-      setMessages(args as IMessages);
+      setMessages(args as IMessage[]);
     });
     window.electron.ipcRenderer.sendMessage('setCurrentChannel', channel);
     window.electron.ipcRenderer.sendMessage('readMessagesFromChannel', channel);
