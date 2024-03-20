@@ -16,7 +16,9 @@ function Channel() {
     window.electron.ipcRenderer.sendMessage('readMessagesFromChannel', channel);
   }, [channel]);
 
-  return <MessageList />;
+  return (
+    messages && messages?.length > 0 && <MessageList messages={messages} />
+  );
 }
 
 export default Channel;

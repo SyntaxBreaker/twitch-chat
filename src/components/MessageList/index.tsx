@@ -1,9 +1,13 @@
+import { IMessage } from '../../types/globalTypes';
 import Message from '../Message';
+import '../../styles/MessageList.scss';
 
-function MessageList() {
+function MessageList({ messages }: { messages: IMessage[] }) {
   return (
     <section className="messageList">
-      <Message />
+      {messages.map((message) => (
+        <Message message={message} />
+      ))}
     </section>
   );
 }

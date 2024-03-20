@@ -1,0 +1,12 @@
+.message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+}

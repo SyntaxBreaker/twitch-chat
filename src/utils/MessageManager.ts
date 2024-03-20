@@ -17,11 +17,30 @@ export default class MessageManager {
       fs.readFileSync(this.filename, 'utf-8'),
     );
 
-    if (this.checkIfChannelExists(fileContent, channel)) {
-      const updatedMessages = fileContent.map((item) => {
-        if (item.channel === channel) {
-          item.messages = [
-            ...item.messages,
+    if (channel) {
+      if (this.checkIfChannelExists(fileContent, channel)) {
+        const updatedMessages = fileContent.map((item) => {
+          if (item.channel === channel) {
+            item.messages = [
+              ...item.messages,
+              {
+                nickname,
+                message,
+                mod,
+                sub,
+                vip,
+              },
+            ];
+          }
+
+          return item;
+        });
+
+        fs.writeFileSync(this.filename, JSON.stringify(updatedMessages));
+      } else {
+        const data = {
+          channel,
+          messages: [
             {
               nickname,
               message,
@@ -29,28 +48,11 @@ export default class MessageManager {
               sub,
               vip,
             },
-          ];
-        }
+          ],
+        };
 
-        return item;
-      });
-
-      fs.writeFileSync(this.filename, JSON.stringify(updatedMessages));
-    } else {
-      const data = {
-        channel,
-        messages: [
-          {
-            nickname,
-            message,
-            mod,
-            sub,
-            vip,
-          },
-        ],
-      };
-
-      fs.writeFileSync(this.filename, JSON.stringify([...fileContent, data]));
+        fs.writeFileSync(this.filename, JSON.stringify([...fileContent, data]));
+      }
     }
   }
 

@@ -12,10 +12,12 @@ interface IFileContent {
   messages: {
     nickname: string;
     message: string;
-    mod: number;
-    sub: number;
-    vip: number;
+    mod: boolean;
+    sub: boolean;
+    vip: boolean;
   }[];
 }
 
-export { IMessage, IFileContent };
+type UserType = 'mod' | 'vip' | 'sub';
+
+export { IMessage, IFileContent, UserType };

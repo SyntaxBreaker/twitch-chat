@@ -1,5 +1,25 @@
-function Message() {
-  return <div className="message"></div>;
+import Badges from '../Badges';
+import { IMessage, UserType } from '../../types/globalTypes';
+import '../../styles/Message.scss';
+
+function Message({ message }: { message: IMessage }) {
+  const badges = Object.entries({
+    mod: message.mod,
+    sub: message.sub,
+    vip: message.vip,
+  })
+    .filter(([key, value]) => value === true)
+    .map(([key, value]) => key) as UserType[];
+
+  return (
+    <div className="message">
+      <Badges badges={badges} />
+      <div className="message__content">
+        <p className="message__nickname">{message.nickname}:</p>{' '}
+        <p className="message__body">{message.message}</p>
+      </div>
+    </div>
+  );
 }
 
 export default Message;
