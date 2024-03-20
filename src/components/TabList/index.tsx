@@ -2,11 +2,11 @@ import Tab from '../Tab';
 import '../../styles/TabList.scss';
 import React from 'react';
 
-interface IProps {
+interface Props {
   channels: string[];
 }
 
-const TabList = React.forwardRef<HTMLDivElement, IProps>(
+const TabList = React.forwardRef<HTMLDivElement, Props>(
   function TabList(props, ref) {
     const { channels } = props;
 
