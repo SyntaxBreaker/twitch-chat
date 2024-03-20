@@ -1,9 +1,9 @@
 interface IMessage {
   channel?: string;
   nickname: string;
-  mod: number;
-  sub: number;
-  vip: number;
+  mod: boolean;
+  sub: boolean;
+  vip: boolean;
   message: string;
 }
 
