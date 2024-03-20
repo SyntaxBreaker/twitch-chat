@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { IFileContent, IMessage } from '../types/globalTypes';
+import { FileContent, MessageItem } from '../types/globalTypes';
 
 export default class MessageManager {
   filename: string;
@@ -11,9 +11,9 @@ export default class MessageManager {
     }
   }
 
-  addMessage(data: IMessage) {
+  addMessage(data: MessageItem) {
     const { channel, nickname, mod, sub, vip, message } = data;
-    const fileContent: IFileContent[] = JSON.parse(
+    const fileContent: FileContent[] = JSON.parse(
       fs.readFileSync(this.filename, 'utf-8'),
     );
 
@@ -56,7 +56,7 @@ export default class MessageManager {
     }
   }
 
-  checkIfChannelExists(data: IFileContent[], channel: string) {
+  checkIfChannelExists(data: FileContent[], channel: string) {
     if (data.some((item) => item.channel === channel)) {
       return true;
     } else {
@@ -65,7 +65,7 @@ export default class MessageManager {
   }
 
   readMessagesFromChannel(channel: string) {
-    const messages: IFileContent[] = JSON.parse(
+    const messages: FileContent[] = JSON.parse(
       fs.readFileSync(this.filename, 'utf-8'),
     );
     return messages.length > 0 ? messages.filter(obj => obj.channel === channel)[0].messages : [];

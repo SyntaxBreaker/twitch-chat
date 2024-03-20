@@ -1,8 +1,8 @@
 import Badges from '../Badges';
-import { IMessage, UserType } from '../../types/globalTypes';
+import { MessageItem, UserType } from '../../types/globalTypes';
 import '../../styles/Message.scss';
 
-function Message({ message }: { message: IMessage }) {
+function Message({ message }: { message: MessageItem }) {
   const badges = Object.entries({
     mod: message.mod,
     sub: message.sub,

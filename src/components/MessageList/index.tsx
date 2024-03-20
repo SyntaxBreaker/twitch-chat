@@ -1,8 +1,8 @@
-import { IMessage } from '../../types/globalTypes';
+import { MessageItem } from '../../types/globalTypes';
 import Message from '../Message';
 import '../../styles/MessageList.scss';
 
-function MessageList({ messages }: { messages: IMessage[] }) {
+function MessageList({ messages }: { messages: MessageItem[] }) {
   return (
     <section className="messageList">
       {messages.map((message) => (

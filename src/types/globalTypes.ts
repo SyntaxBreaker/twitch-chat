@@ -1,4 +1,4 @@
-interface IMessage {
+interface MessageItem {
   channel?: string;
   nickname: string;
   mod: boolean;
@@ -7,7 +7,7 @@ interface IMessage {
   message: string;
 }
 
-interface IFileContent {
+interface FileContent {
   channel: string;
   messages: {
     nickname: string;
@@ -20,4 +20,4 @@ interface IFileContent {
 
 type UserType = 'mod' | 'vip' | 'sub';
 
-export { IMessage, IFileContent, UserType };
+export { MessageItem, FileContent, UserType };
