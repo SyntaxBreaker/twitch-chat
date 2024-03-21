@@ -6,7 +6,7 @@ function Badges({ badges }: { badges: BadgeType[] }) {
   return (
     <div className="badges">
       {badges.map((badge) => (
-        <Badge badge={badge} />
+        <Badge badge={badge} key={badge} />
       ))}
     </div>
   );
