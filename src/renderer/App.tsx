@@ -27,6 +27,7 @@ export default function App() {
 
     client.on('message', (channel, tags, message, self) => {
       const data = {
+        ID: tags.id,
         channel: channel.replace('#', ''),
         nickname: tags['display-name'],
         mod: tags.mod,

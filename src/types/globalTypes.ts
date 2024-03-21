@@ -1,4 +1,5 @@
 interface MessageItem {
+  ID: string;
   channel?: string;
   nickname: string;
   mod: boolean;
@@ -10,6 +11,7 @@ interface MessageItem {
 interface FileContent {
   channel: string;
   messages: {
+    ID: string;
     nickname: string;
     message: string;
     mod: boolean;
