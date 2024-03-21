@@ -68,6 +68,8 @@ export default class MessageManager {
     const messages: FileContent[] = JSON.parse(
       fs.readFileSync(this.filename, 'utf-8'),
     );
-    return messages.length > 0 ? messages.filter(obj => obj.channel === channel)[0].messages : [];
+    const channelMessages = messages.length > 0 ? messages.filter(obj => obj.channel === channel) : [];
+
+    return channelMessages.length > 0 ? channelMessages[0].messages : [];
   }
 }
