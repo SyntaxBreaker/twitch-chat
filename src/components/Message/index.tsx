@@ -8,8 +8,8 @@ function Message({ message }: { message: MessageItem }) {
     sub: message.sub,
     vip: message.vip,
   })
-    .filter(([key, value]) => value === true)
-    .map(([key, value]) => key) as BadgeType[];
+    .filter(([, value]) => value === true)
+    .map(([key, ]) => key) as BadgeType[];
 
   return (
     <div className="message">
