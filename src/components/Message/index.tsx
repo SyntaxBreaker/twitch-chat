@@ -15,8 +15,10 @@ function Message({ message }: { message: MessageItem }) {
     <div className="message">
       <Badges badges={badges} />
       <div className="message__content">
-        <p className="message__nickname">{message.nickname}:</p>{' '}
-        <p className="message__body">{message.message}</p>
+        <p className="message__nickname">
+          {message.nickname}:{' '}
+          <span className="message__body">{message.message}</span>
+        </p>{' '}
       </div>
     </div>
   );

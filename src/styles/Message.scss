@@ -1,12 +1,14 @@
 .message {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  gap: 4px;
 
-  &__content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
+  &__nickname {
+    font-weight: bold;
+  }
+
+  &__body {
+    font-weight: normal;
+    font-size: 14px;
   }
 }
