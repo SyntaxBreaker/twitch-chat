@@ -1,5 +1,5 @@
 import Badges from '../Badges';
-import { MessageItem, UserType } from '../../types/globalTypes';
+import { MessageItem, BadgeType } from '../../types/globalTypes';
 import '../../styles/Message.scss';
 
 function Message({ message }: { message: MessageItem }) {
@@ -9,7 +9,7 @@ function Message({ message }: { message: MessageItem }) {
     vip: message.vip,
   })
     .filter(([key, value]) => value === true)
-    .map(([key, value]) => key) as UserType[];
+    .map(([key, value]) => key) as BadgeType[];
 
   return (
     <div className="message">

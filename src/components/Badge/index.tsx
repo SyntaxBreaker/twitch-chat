@@ -1,10 +1,10 @@
 import modImage from '../../../assets/mod.svg';
 import subImage from '../../../assets/sub.svg';
 import vipImage from '../../../assets/vip.svg';
-import { UserType } from '../../types/globalTypes';
+import { BadgeType } from '../../types/globalTypes';
 import '../../styles/Badge.scss';
 
-function Badge({ badge }: { badge: UserType }) {
+function Badge({ badge }: { badge: BadgeType }) {
   return (
     <img
       src={

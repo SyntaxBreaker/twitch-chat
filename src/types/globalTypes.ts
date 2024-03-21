@@ -18,6 +18,6 @@ interface FileContent {
   }[];
 }
 
-type UserType = 'mod' | 'vip' | 'sub';
+type BadgeType = 'mod' | 'vip' | 'sub';
 
-export { MessageItem, FileContent, UserType };
+export { MessageItem, FileContent, BadgeType };

@@ -1,8 +1,8 @@
-import { UserType } from '../../types/globalTypes';
+import { BadgeType } from '../../types/globalTypes';
 import Badge from '../Badge';
 import '../../styles/Badges.scss';
 
-function Badges({ badges }: { badges: UserType[] }) {
+function Badges({ badges }: { badges: BadgeType[] }) {
   return (
     <div className="badges">
       {badges.map((badge) => (
