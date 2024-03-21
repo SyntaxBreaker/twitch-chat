@@ -6,7 +6,7 @@ function MessageList({ messages }: { messages: MessageItem[] }) {
   return (
     <section className="messageList">
       {messages.map((message) => (
-        <Message message={message} />
+        <Message message={message} key={message.ID} />
       ))}
     </section>
   );
