@@ -9,7 +9,7 @@ function Modal({
 }) {
   const [nickname, setNickname] = useState('');
 
-  const ref = useOutsideClick(() => setIsModalOpen(false));
+  const ref = useOutsideClick<HTMLFormElement>(() => setIsModalOpen(false));
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
