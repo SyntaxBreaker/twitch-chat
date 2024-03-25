@@ -37,6 +37,7 @@ const TabList = React.forwardRef<HTMLDivElement, Props>(
           <Tab
             channel={channel.replace('#', '')}
             contextMenu={contextMenu}
+            setContextMenu={setContextMenu}
             handleContextMenu={handleContextMenu}
             key={channel}
           />

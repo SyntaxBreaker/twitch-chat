@@ -5,13 +5,24 @@ import ContextMenu from '../ContextMenu';
 interface TabProps {
   channel: string;
   contextMenu: { channel: string; active: boolean };
+  setContextMenu: React.Dispatch<
+    React.SetStateAction<{
+      channel: string;
+      active: boolean;
+    }>
+  >;
   handleContextMenu: (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     channel: string,
   ) => void;
 }
 
-function Tab({ channel, contextMenu, handleContextMenu }: TabProps) {
+function Tab({
+  channel,
+  contextMenu,
+  setContextMenu,
+  handleContextMenu,
+}: TabProps) {
   return (
     <>
       <Link
@@ -21,7 +32,9 @@ function Tab({ channel, contextMenu, handleContextMenu }: TabProps) {
       >
         {channel}
       </Link>
-      {contextMenu.active && contextMenu.channel === channel && <ContextMenu />}
+      {contextMenu.active && contextMenu.channel === channel && (
+        <ContextMenu setContextMenu={setContextMenu} />
+      )}
     </>
   );
 }
