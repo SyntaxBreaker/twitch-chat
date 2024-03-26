@@ -1,20 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/Modal.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 
-function Modal({
-  setIsModalOpen,
-}: {
+interface ModalProps {
+  channel?: string;
+  addChannel?: (nickname: string) => void;
+  updateChannel?: (nickname: string) => void;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+}
+
+function Modal({
+  channel,
+  addChannel,
+  updateChannel,
+  setIsModalOpen,
+}: ModalProps) {
   const [nickname, setNickname] = useState('');
 
   const ref = useOutsideClick<HTMLFormElement>(() => setIsModalOpen(false));
 
+  useEffect(() => {
+    if (channel) {
+      setNickname(channel);
+    }
+  }, [channel]);
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    window.electron.ipcRenderer.sendMessage('addChannel', nickname.trim());
-    window.electron.ipcRenderer.sendMessage('readChannels');
+    if (addChannel) {
+      addChannel(nickname);
+    }
+
     setIsModalOpen(false);
   };
 
@@ -27,9 +43,10 @@ function Modal({
         placeholder="Enter a nickname"
         className="modal__input"
         autoFocus
+        value={nickname}
       />
       <button type="submit" className="modal__button">
-        Add Channel
+        {!channel ? 'Add Channel' : 'Update Channel'}
       </button>
     </form>
   );
