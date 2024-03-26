@@ -2,6 +2,7 @@ import '../../styles/ContextMenu.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 
 interface IProps {
+  channel: string;
   setContextMenu: React.Dispatch<
     React.SetStateAction<{
       channel: string;
@@ -10,7 +11,7 @@ interface IProps {
   >;
 }
 
-function ContextMenu({ setContextMenu }: IProps) {
+function ContextMenu({ channel, setContextMenu }: IProps) {
   const ref = useOutsideClick<HTMLDivElement>(() =>
     setContextMenu((prev) => ({
       ...prev,
@@ -19,10 +20,17 @@ function ContextMenu({ setContextMenu }: IProps) {
     })),
   );
 
+  const removeChannel = () => {
+    window.electron.ipcRenderer.sendMessage('removeChannel', channel);
+    window.electron.ipcRenderer.sendMessage('readChannels');
+  };
+
   return (
     <div className="contextMenu" ref={ref}>
       <button className="contextMenu__button">Edit</button>
-      <button className="contextMenu__button">Remove</button>
+      <button className="contextMenu__button" onClick={removeChannel}>
+        Remove
+      </button>
     </div>
   );
 }

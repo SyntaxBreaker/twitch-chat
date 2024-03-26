@@ -4,6 +4,7 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export type Channels =
   | 'addChannel'
+  | 'removeChannel'
   | 'readChannels'
   | 'addMessage'
   | 'readMessagesFromChannel'

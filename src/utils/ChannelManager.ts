@@ -23,6 +23,15 @@ export default class ChannelManager {
     }
   }
 
+  removeChannel(channel: string) {
+    const { channels }: { channels: string[] } = this.readChannels();
+    const updatedChannels = channels.filter((item) => item !== channel);
+    fs.writeFileSync(
+      this.filename,
+      JSON.stringify({ channels: updatedChannels }),
+    );
+  }
+
   checkIfChannelExists(channel: string) {
     const { channels } = this.readChannels();
     if (channels.includes(channel)) {

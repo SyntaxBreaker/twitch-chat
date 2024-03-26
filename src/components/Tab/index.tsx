@@ -33,7 +33,7 @@ function Tab({
         {channel}
       </Link>
       {contextMenu.active && contextMenu.channel === channel && (
-        <ContextMenu setContextMenu={setContextMenu} />
+        <ContextMenu channel={channel} setContextMenu={setContextMenu} />
       )}
     </>
   );

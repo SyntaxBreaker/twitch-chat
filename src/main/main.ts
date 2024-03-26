@@ -36,6 +36,10 @@ ipcMain.on('addChannel', (_, data) => {
   channelManager.addChannel(channel);
 });
 
+ipcMain.on('removeChannel', (_, data) => {
+  channelManager.removeChannel(data);
+});
+
 ipcMain.on('readChannels', (event, _) => {
   const channels = channelManager.readChannels();
   event.reply('readChannels', channels);
