@@ -4,14 +4,10 @@ import leftArrow from '../../../assets/leftArrow.svg';
 import rightArrow from '../../../assets/rightArrow.svg';
 import '../../styles/Tabs.scss';
 import TabList from '../TabList';
+import { useModalContext } from '../../context/ModalContext';
 
-function Tabs({
-  channels,
-  setIsModalOpen,
-}: {
-  channels: string[];
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function Tabs({ channels }: { channels: string[] }) {
+  const { setModal } = useModalContext();
   const myRef = useRef<HTMLDivElement>(null);
 
   const scrollTabs = (direction: 'left' | 'right') => {
@@ -47,7 +43,12 @@ function Tabs({
           </button>
         )}
       </div>
-      <button className="tabs__button" onClick={() => setIsModalOpen(true)}>
+      <button
+        className="tabs__button"
+        onClick={() =>
+          setModal((prev) => ({ ...prev, channel: '', isModalOpen: true }))
+        }
+      >
         <img src={addIcon} />
       </button>
     </nav>

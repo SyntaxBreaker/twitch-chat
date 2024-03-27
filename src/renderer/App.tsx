@@ -6,15 +6,12 @@ import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
 import Channel from '../pages/Channel';
 import tmi from 'tmi.js';
+import { useModalContext } from '../context/ModalContext';
 
 export default function App() {
   const [channels, setChannels] = useState<string[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const addChannel = (nickname: string) => {
-    window.electron.ipcRenderer.sendMessage('addChannel', nickname.trim());
-    window.electron.ipcRenderer.sendMessage('readChannels');
-  };
+  const { modal } = useModalContext();
 
   useEffect(() => {
     window.electron.ipcRenderer.on('readChannels', (arg: any) => {
@@ -52,11 +49,9 @@ export default function App() {
 
   return (
     <Router>
-      <Tabs channels={channels} setIsModalOpen={setIsModalOpen} />
-      {isModalOpen && (
-        <Modal addChannel={addChannel} setIsModalOpen={setIsModalOpen} />
-      )}
-      <main style={{ filter: isModalOpen ? 'blur(10rem)' : undefined }}>
+      <Tabs channels={channels} />
+      {modal.isModalOpen && <Modal />}
+      <main style={{ filter: modal.isModalOpen ? 'blur(10rem)' : undefined }}>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path=":channel" element={<Channel />} />

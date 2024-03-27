@@ -1,29 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../../styles/Modal.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
+import { useModalContext } from '../../context/ModalContext';
 
-interface ModalProps {
-  channel?: string;
-  addChannel?: (nickname: string) => void;
-  updateChannel?: (nickname: string) => void;
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Modal({
-  channel,
-  addChannel,
-  updateChannel,
-  setIsModalOpen,
-}: ModalProps) {
+function Modal() {
   const [nickname, setNickname] = useState('');
 
-  const ref = useOutsideClick<HTMLFormElement>(() => setIsModalOpen(false));
+  const { modal, setModal } = useModalContext();
+  const ref = useOutsideClick<HTMLFormElement>(() =>
+    setModal((prev) => ({ ...prev, channel: '', isModalOpen: false })),
+  );
 
-  useEffect(() => {
-    if (channel) {
-      setNickname(channel);
-    }
-  }, [channel]);
+  const addChannel = (nickname: string) => {
+    window.electron.ipcRenderer.sendMessage('addChannel', nickname.trim());
+    window.electron.ipcRenderer.sendMessage('readChannels');
+  };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -31,7 +22,7 @@ function Modal({
       addChannel(nickname);
     }
 
-    setIsModalOpen(false);
+    setModal((prev) => ({ ...prev, channel: '', isModalOpen: false }));
   };
 
   return (
@@ -46,7 +37,7 @@ function Modal({
         value={nickname}
       />
       <button type="submit" className="modal__button">
-        {!channel ? 'Add Channel' : 'Update Channel'}
+        {!modal.channel ? 'Add Channel' : 'Update Channel'}
       </button>
     </form>
   );
