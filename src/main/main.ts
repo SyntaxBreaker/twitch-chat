@@ -40,6 +40,11 @@ ipcMain.on('removeChannel', (_, data) => {
   channelManager.removeChannel(data);
 });
 
+ipcMain.on('updateChannel', (_, data) => {
+  const { oldValue, newValue } = data;
+  channelManager.updateChannel(oldValue, newValue);
+});
+
 ipcMain.on('readChannels', (event, _) => {
   const channels = channelManager.readChannels();
   event.reply('readChannels', channels);

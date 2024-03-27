@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/Modal.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { useModalContext } from '../../context/ModalContext';
@@ -16,14 +16,30 @@ function Modal() {
     window.electron.ipcRenderer.sendMessage('readChannels');
   };
 
+  const updateChannel = (nickname: string) => {
+    window.electron.ipcRenderer.sendMessage('updateChannel', {
+      oldValue: modal.channel,
+      newValue: nickname.trim(),
+    });
+    window.electron.ipcRenderer.sendMessage('readChannels');
+  };
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    if (addChannel) {
+    if (modal.channel) {
+      updateChannel(nickname);
+    } else {
       addChannel(nickname);
     }
 
     setModal((prev) => ({ ...prev, channel: '', isModalOpen: false }));
   };
+
+  useEffect(() => {
+    if (modal.channel) {
+      setNickname(modal.channel);
+    }
+  }, [modal]);
 
   return (
     <form className="modal" onSubmit={handleSubmit} ref={ref}>

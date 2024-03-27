@@ -32,6 +32,22 @@ export default class ChannelManager {
     );
   }
 
+  updateChannel(oldValue: string, newValue: string) {
+    const { channels }: { channels: string[] } = this.readChannels();
+    const updatedChannels = channels.map((item) => {
+      if (item === oldValue) {
+        return newValue;
+      }
+
+      return item;
+    });
+
+    fs.writeFileSync(
+      this.filename,
+      JSON.stringify({ channels: updatedChannels }),
+    );
+  }
+
   checkIfChannelExists(channel: string) {
     const { channels } = this.readChannels();
     if (channels.includes(channel)) {
