@@ -1,6 +1,7 @@
 import '../../styles/ContextMenu.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { useModalContext } from '../../context/ModalContext';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   channel: string;
@@ -21,10 +22,12 @@ function ContextMenu({ channel, setContextMenu }: IProps) {
     })),
   );
   const { setModal } = useModalContext();
+  const navigate = useNavigate();
 
   const removeChannel = () => {
     window.electron.ipcRenderer.sendMessage('removeChannel', channel);
     window.electron.ipcRenderer.sendMessage('readChannels');
+    navigate('/');
   };
 
   return (
