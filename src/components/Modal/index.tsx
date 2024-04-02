@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../../styles/Modal.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { useModalContext } from '../../context/ModalContext';
+import { useNavigate } from 'react-router-dom';
 
 function Modal() {
   const [nickname, setNickname] = useState('');
@@ -10,6 +11,7 @@ function Modal() {
   const ref = useOutsideClick<HTMLFormElement>(() =>
     setModal((prev) => ({ ...prev, channel: '', isModalOpen: false })),
   );
+  const navigate = useNavigate();
 
   const addChannel = (nickname: string) => {
     window.electron.ipcRenderer.sendMessage('addChannel', nickname.trim());
@@ -22,6 +24,7 @@ function Modal() {
       newValue: nickname.trim(),
     });
     window.electron.ipcRenderer.sendMessage('readChannels');
+    navigate(nickname.trim());
   };
 
   const handleSubmit = (event: React.SyntheticEvent) => {

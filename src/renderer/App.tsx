@@ -51,7 +51,12 @@ export default function App() {
     <Router>
       <Tabs channels={channels} />
       {modal.isModalOpen && <Modal />}
-      <main style={{ filter: modal.isModalOpen ? 'blur(10rem)' : undefined }}>
+      <main
+        style={{
+          filter: modal.isModalOpen ? 'blur(10rem)' : undefined,
+          overflow: modal.isModalOpen ? 'hidden' : 'visible',
+        }}
+      >
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path=":channel" element={<Channel />} />
