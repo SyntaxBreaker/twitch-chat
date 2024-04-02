@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 import Channel from '../pages/Channel';
 import tmi from 'tmi.js';
 import { useModalContext } from '../context/ModalContext';
+import { parseEmotes } from 'emotettv';
 
 export default function App() {
   const [channels, setChannels] = useState<string[]>([]);
@@ -28,22 +29,31 @@ export default function App() {
     client.connect();
 
     client.on('message', (channel, tags, message, self) => {
-      const data = {
-        ID: tags.id,
-        channel: channel.replace('#', ''),
-        nickname: tags['display-name'],
-        mod: tags.mod,
-        sub: tags.subscriber,
-        vip: tags.vip ?? false,
-        message: message,
+      const saveMessage = async () => {
+        const messageWithEmotes = (
+          await parseEmotes(message, tags.emotes, {
+            channelId: tags['room-id'],
+          })
+        ).toHTML();
+        const messageData = {
+          ID: tags.id,
+          channel: channel.replace('#', ''),
+          nickname: tags['display-name'],
+          mod: tags.mod,
+          sub: tags.subscriber,
+          vip: tags.vip ?? false,
+          message: messageWithEmotes,
+        };
+        window.electron.ipcRenderer.on('addMessage', (args: any) => {
+          window.electron.ipcRenderer.sendMessage(
+            'readMessagesFromChannel',
+            args,
+          );
+        });
+        window.electron.ipcRenderer.sendMessage('addMessage', messageData);
       };
-      window.electron.ipcRenderer.on('addMessage', (args: any) => {
-        window.electron.ipcRenderer.sendMessage(
-          'readMessagesFromChannel',
-          args,
-        );
-      });
-      window.electron.ipcRenderer.sendMessage('addMessage', data);
+
+      saveMessage();
     });
   }, [channels]);
 

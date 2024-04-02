@@ -9,7 +9,7 @@ function Message({ message }: { message: MessageItem }) {
     vip: message.vip,
   })
     .filter(([, value]) => value === true)
-    .map(([key, ]) => key) as BadgeType[];
+    .map(([key]) => key) as BadgeType[];
 
   return (
     <div className="message">
@@ -17,7 +17,10 @@ function Message({ message }: { message: MessageItem }) {
       <div className="message__content">
         <p className="message__nickname">
           {message.nickname}:{' '}
-          <span className="message__body">{message.message}</span>
+          <span
+            className="message__body"
+            dangerouslySetInnerHTML={{ __html: message.message }}
+          />
         </p>{' '}
       </div>
     </div>
