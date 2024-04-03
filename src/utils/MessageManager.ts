@@ -18,6 +18,10 @@ export default class MessageManager {
     );
 
     if (channel) {
+      if (this.checkIfMessageExists(channel, ID)) {
+        return;
+      }
+
       if (this.checkIfChannelExists(fileContent, channel)) {
         const updatedMessages = fileContent.map((item) => {
           if (item.channel === channel) {
@@ -64,6 +68,11 @@ export default class MessageManager {
     } else {
       return false;
     }
+  }
+
+  checkIfMessageExists(channel: string, id: string) {
+    const messages = this.readMessagesFromChannel(channel);
+    return messages.some((el) => el.ID === id);
   }
 
   readMessagesFromChannel(channel: string) {
