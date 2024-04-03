@@ -58,6 +58,10 @@ export default class ChannelManager {
   }
 
   readChannels() {
+    if (!fs.existsSync(this.filename)) {
+      fs.writeFileSync(this.filename, JSON.stringify({ channels: [] }));
+    }
+
     const channels = fs.readFileSync(this.filename, 'utf-8');
     return JSON.parse(channels);
   }
