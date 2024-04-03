@@ -76,9 +76,14 @@ export default class MessageManager {
   }
 
   readMessagesFromChannel(channel: string) {
+    if (!fs.existsSync(this.filename)) {
+      fs.writeFileSync(this.filename, JSON.stringify([]));
+    }
+
     const messages: FileContent[] = JSON.parse(
       fs.readFileSync(this.filename, 'utf-8'),
     );
+
     const channelMessages =
       messages.length > 0
         ? messages.filter((obj) => obj.channel === channel)
