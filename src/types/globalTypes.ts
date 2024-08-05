@@ -2,6 +2,7 @@ interface MessageItem {
   ID: string;
   channel?: string;
   nickname: string;
+  color: string;
   mod: boolean;
   sub: boolean;
   vip: boolean;
@@ -13,6 +14,7 @@ interface FileContent {
   messages: {
     ID: string;
     nickname: string;
+    color: string;
     message: string;
     mod: boolean;
     sub: boolean;

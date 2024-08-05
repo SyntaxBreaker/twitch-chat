@@ -15,7 +15,7 @@ function Message({ message }: { message: MessageItem }) {
     <div className="message">
       <Badges badges={badges} />
       <div className="message__content">
-        <p className="message__nickname">
+        <p className="message__nickname" style={{ color: message.color }}>
           {message.nickname}:{' '}
           <span
             className="message__body"

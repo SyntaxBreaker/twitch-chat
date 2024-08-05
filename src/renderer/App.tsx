@@ -39,6 +39,7 @@ export default function App() {
           ID: tags.id,
           channel: channel.replace('#', ''),
           nickname: tags['display-name'],
+          color: tags.color ?? '#111111',
           mod: tags.mod,
           sub: tags.subscriber,
           vip: tags.vip ?? false,

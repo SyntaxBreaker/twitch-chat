@@ -12,7 +12,7 @@ export default class MessageManager {
   }
 
   addMessage(data: MessageItem) {
-    const { ID, channel, nickname, mod, sub, vip, message } = data;
+    const { ID, channel, nickname, color, mod, sub, vip, message } = data;
     const fileContent: FileContent[] = JSON.parse(
       fs.readFileSync(this.filename, 'utf-8'),
     );
@@ -30,6 +30,7 @@ export default class MessageManager {
               {
                 ID,
                 nickname,
+                color,
                 message,
                 mod,
                 sub,
@@ -49,6 +50,7 @@ export default class MessageManager {
             {
               ID,
               nickname,
+              color,
               message,
               mod,
               sub,
