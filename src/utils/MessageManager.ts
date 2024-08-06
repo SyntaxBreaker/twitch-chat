@@ -17,6 +17,21 @@ export default class MessageManager {
       fs.readFileSync(this.filename, 'utf-8'),
     );
 
+    function addTitleToImages(message: string) {
+      return message.replace(
+        /(<figure class="emotettv-emote"[^>]*>)(<img[^>]*>)/g,
+        (fullMatch, figureTag, imageTag) => {
+          const altTextMatch = imageTag.match(/alt="([^"]*)"/);
+          const altText = altTextMatch ? altTextMatch[1] : '';
+          return (
+            figureTag + imageTag.replace(/(<img\s)/, `$1title="${altText}" `)
+          );
+        },
+      );
+    }
+
+    const messageWithTitles = addTitleToImages(message);
+
     if (channel) {
       if (this.checkIfMessageExists(channel, ID)) {
         return;
@@ -31,7 +46,7 @@ export default class MessageManager {
                 ID,
                 nickname,
                 color,
-                message,
+                message: messageWithTitles,
                 mod,
                 sub,
                 vip,
@@ -51,7 +66,7 @@ export default class MessageManager {
               ID,
               nickname,
               color,
-              message,
+              message: messageWithTitles,
               mod,
               sub,
               vip,
