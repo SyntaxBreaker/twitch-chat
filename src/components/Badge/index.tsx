@@ -1,6 +1,6 @@
-import modImage from '../../../assets/mod.svg';
-import subImage from '../../../assets/sub.svg';
-import vipImage from '../../../assets/vip.svg';
+import modIcon from '../../../assets/modIcon.svg';
+import subIcon from '../../../assets/subIcon.svg';
+import vipIcon from '../../../assets/vipIcon.svg';
 import { BadgeType } from '../../types/globalTypes';
 import '../../styles/Badge.scss';
 
@@ -9,11 +9,11 @@ function Badge({ badge }: { badge: BadgeType }) {
     <img
       src={
         badge === 'mod'
-          ? modImage
+          ? modIcon
           : badge === 'vip'
-          ? vipImage
+          ? vipIcon
           : badge === 'sub'
-          ? subImage
+          ? subIcon
           : ''
       }
       className="badge"

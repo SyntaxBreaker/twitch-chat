@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import addIcon from '../../../assets/add.svg';
-import leftArrow from '../../../assets/leftArrow.svg';
-import rightArrow from '../../../assets/rightArrow.svg';
+import addIcon from '../../../assets/addIcon.svg';
+import leftArrowIcon from '../../../assets/leftArrowIcon.svg';
+import rightArrowIcon from '../../../assets/rightArrowIcon.svg';
 import '../../styles/Tabs.scss';
 import TabList from '../TabList';
 import { useModalContext } from '../../context/ModalContext';
@@ -30,7 +30,7 @@ function Tabs({ channels }: { channels: string[] }) {
             className="tablist__button"
             onClick={() => scrollTabs('left')}
           >
-            <img src={leftArrow} alt="" />
+            <img src={leftArrowIcon} alt="" />
           </button>
         )}
         <TabList channels={channels} ref={myRef} />
@@ -39,7 +39,7 @@ function Tabs({ channels }: { channels: string[] }) {
             className="tablist__button"
             onClick={() => scrollTabs('right')}
           >
-            <img src={rightArrow} alt="" />
+            <img src={rightArrowIcon} alt="" />
           </button>
         )}
       </div>
