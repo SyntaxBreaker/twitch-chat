@@ -17,9 +17,14 @@ export default class MessageManager {
       fs.readFileSync(this.filename, 'utf-8'),
     );
 
-    function addTitleToImages(message: string) {
-      return message.replace(
-        /(<figure class="emotettv-emote"[^>]*>)(<img[^>]*>)/g,
+    function formatMessage(message: string) {
+      const emoticonRegex =
+        /(<figure class="emotettv-emote"[^>]*>)(<img[^>]*>)/g;
+      const urlRegex =
+        /https?:\/\/(?!static-cdn\.jtvnw\.net|cdn\.7tv\.app|cdn\.betterttv\.net|cdn\.frankerfacez\.com)[^\s]+/g;
+
+      message = message.replace(
+        emoticonRegex,
         (fullMatch, figureTag, imageTag) => {
           const altTextMatch = imageTag.match(/alt="([^"]*)"/);
           const altText = altTextMatch ? altTextMatch[1] : '';
@@ -28,9 +33,15 @@ export default class MessageManager {
           );
         },
       );
+
+      message = message.replace(urlRegex, (url) => {
+        return `<a href=${url} target="_blank">${url}</a>`;
+      });
+
+      return message;
     }
 
-    const messageWithTitles = addTitleToImages(message);
+    const formattedMessage = formatMessage(message);
 
     if (channel) {
       if (this.checkIfMessageExists(channel, ID)) {
@@ -46,7 +57,7 @@ export default class MessageManager {
                 ID,
                 nickname,
                 color,
-                message: messageWithTitles,
+                message: formattedMessage,
                 mod,
                 sub,
                 vip,
@@ -66,7 +77,7 @@ export default class MessageManager {
               ID,
               nickname,
               color,
-              message: messageWithTitles,
+              message: formattedMessage,
               mod,
               sub,
               vip,
