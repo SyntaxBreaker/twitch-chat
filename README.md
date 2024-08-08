@@ -8,6 +8,7 @@ TwitchChat is an app that allows you to read a real-time Twitch chat.
 - Multi-platform support
 - External emoticon support
 - Multi-channel support
+- Local chat history storage
 
 ## Run Locally
 
@@ -37,4 +38,4 @@ Start the application
   
 ## Authors
 
-- [@SyntaxBreaker](https://github.com/SyntaxBreaker)
+- **SyntaxBreaker**: [[Github](https://www.github.com/SyntaxBreaker)] [[Website](https://syntaxbreaker.netlify.app)]
