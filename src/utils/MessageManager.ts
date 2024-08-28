@@ -1,21 +1,13 @@
-import fs from 'fs';
-import { FileContent, MessageItem } from '../types/globalTypes';
+import { MessageItem } from '../types/globalTypes';
+import DatabaseManager from './DatabaseManager';
 
-export default class MessageManager {
-  filename: string;
-
-  constructor(file: string) {
-    this.filename = file;
-    if (!fs.existsSync(file)) {
-      fs.writeFileSync(file, JSON.stringify([]));
-    }
+export default class MessageManager extends DatabaseManager {
+  constructor() {
+    super();
   }
 
   addMessage(data: MessageItem) {
-    const { ID, channel, nickname, color, mod, sub, vip, message } = data;
-    const fileContent: FileContent[] = JSON.parse(
-      fs.readFileSync(this.filename, 'utf-8'),
-    );
+    const { channel, nickname, color, mod, sub, vip, message } = data;
 
     function formatMessage(message: string) {
       const emoticonRegex =
@@ -43,80 +35,38 @@ export default class MessageManager {
 
     const formattedMessage = formatMessage(message);
 
-    if (channel) {
-      if (this.checkIfMessageExists(channel, ID)) {
-        return;
-      }
+    const newMessage = [
+      channel,
+      nickname,
+      color,
+      formattedMessage,
+      mod,
+      sub,
+      vip,
+    ];
 
-      if (this.checkIfChannelExists(fileContent, channel)) {
-        const updatedMessages = fileContent.map((item) => {
-          if (item.channel === channel) {
-            item.messages = [
-              ...item.messages,
-              {
-                ID,
-                nickname,
-                color,
-                message: formattedMessage,
-                mod,
-                sub,
-                vip,
-              },
-            ];
+    this.db.run(
+      `
+      INSERT INTO messages (channel, nickname, color, message, mod, sub, vip)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `,
+      newMessage,
+    );
+  }
+
+  async readMessagesFromChannel(channel: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this.db.all(
+        `SELECT * FROM messages WHERE channel = ?`,
+        channel,
+        (err, row) => {
+          if (err) {
+            return reject(new Error(err.message));
           }
 
-          return item;
-        });
-
-        fs.writeFileSync(this.filename, JSON.stringify(updatedMessages));
-      } else {
-        const data = {
-          channel,
-          messages: [
-            {
-              ID,
-              nickname,
-              color,
-              message: formattedMessage,
-              mod,
-              sub,
-              vip,
-            },
-          ],
-        };
-
-        fs.writeFileSync(this.filename, JSON.stringify([...fileContent, data]));
-      }
-    }
-  }
-
-  checkIfChannelExists(data: FileContent[], channel: string) {
-    if (data.some((item) => item.channel === channel)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  checkIfMessageExists(channel: string, id: string) {
-    const messages = this.readMessagesFromChannel(channel);
-    return messages.some((el) => el.ID === id);
-  }
-
-  readMessagesFromChannel(channel: string) {
-    if (!fs.existsSync(this.filename)) {
-      fs.writeFileSync(this.filename, JSON.stringify([]));
-    }
-
-    const messages: FileContent[] = JSON.parse(
-      fs.readFileSync(this.filename, 'utf-8'),
-    );
-
-    const channelMessages =
-      messages.length > 0
-        ? messages.filter((obj) => obj.channel === channel)
-        : [];
-
-    return channelMessages.length > 0 ? channelMessages[0].messages : [];
+          resolve(row.map((item: any) => item));
+        },
+      );
+    });
   }
 }

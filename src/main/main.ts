@@ -17,8 +17,8 @@ import { resolveHtmlPath } from './util';
 import ChannelManager from '../utils/ChannelManager';
 import MessageManager from '../utils/MessageManager';
 
-const channelManager = new ChannelManager('channels.json');
-const messageManager = new MessageManager('messages.json');
+const channelManager = new ChannelManager();
+const messageManager = new MessageManager();
 let currentChannel: string;
 
 class AppUpdater {
@@ -45,8 +45,8 @@ ipcMain.on('updateChannel', (_, data) => {
   channelManager.updateChannel(oldValue, newValue);
 });
 
-ipcMain.on('readChannels', (event, _) => {
-  const channels = channelManager.readChannels();
+ipcMain.on('readChannels', async (event, _) => {
+  const channels = await channelManager.readChannels();
   event.reply('readChannels', channels);
 });
 
@@ -61,8 +61,8 @@ ipcMain.on('setCurrentChannel', (_, data) => {
   currentChannel = data.toLowerCase();
 });
 
-ipcMain.on('readMessagesFromChannel', (event, data) => {
-  const messages = messageManager.readMessagesFromChannel(data);
+ipcMain.on('readMessagesFromChannel', async (event, data) => {
+  const messages = await messageManager.readMessagesFromChannel(data);
   event.reply('readMessagesFromChannel', messages);
 });
 

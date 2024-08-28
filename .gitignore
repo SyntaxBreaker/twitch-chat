@@ -28,5 +28,4 @@ npm-debug.log.*
 *.sass.d.ts
 *.scss.d.ts
 
-channels.json
-messages.json
+*.db

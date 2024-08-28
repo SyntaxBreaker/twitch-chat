@@ -1,68 +1,55 @@
-import fs from 'fs';
+import DatabaseManager from './DatabaseManager';
 
-export default class ChannelManager {
-  filename: string;
-
-  constructor(filename: string) {
-    this.filename = filename;
-    if (!fs.existsSync(this.filename)) {
-      fs.writeFileSync(this.filename, JSON.stringify({ channels: [] }));
-    }
+export default class ChannelManager extends DatabaseManager {
+  constructor() {
+    super();
   }
 
   addChannel(channel: string) {
-    const { channels } = this.readChannels();
-    if (!channels) {
-      fs.writeFileSync(this.filename, JSON.stringify({ channels: [channel] }));
-    } else {
-      if (this.checkIfChannelExists(channel)) return;
-      fs.writeFileSync(
-        this.filename,
-        JSON.stringify({ channels: [...channels, channel] }),
-      );
-    }
+    const data = [channel, channel];
+
+    this.db.run(
+      `
+      INSERT INTO channels (name)
+      SELECT ?
+      WHERE NOT EXISTS (SELECT * FROM channels WHERE name = ?)
+    `,
+      data,
+    );
   }
 
   removeChannel(channel: string) {
-    const { channels }: { channels: string[] } = this.readChannels();
-    const updatedChannels = channels.filter((item) => item !== channel);
-    fs.writeFileSync(
-      this.filename,
-      JSON.stringify({ channels: updatedChannels }),
+    this.db.run(
+      `
+      DELETE FROM channels
+      WHERE name = ?
+    `,
+      channel,
     );
   }
 
-  updateChannel(oldValue: string, newValue: string) {
-    const { channels }: { channels: string[] } = this.readChannels();
-    const updatedChannels = channels.map((item) => {
-      if (item === oldValue) {
-        return newValue;
-      }
+  updateChannel(channel: string, newValue: string) {
+    const data = [newValue, channel];
 
-      return item;
+    this.db.run(
+      `
+      UPDATE channels
+      SET name = ?
+      WHERE name = ?  
+    `,
+      data,
+    );
+  }
+
+  async readChannels(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this.db.all(`SELECT * FROM channels`, (err, row) => {
+        if (err) {
+          return reject(new Error(err.message));
+        }
+
+        resolve(row.map((item: any) => item.name));
+      });
     });
-
-    fs.writeFileSync(
-      this.filename,
-      JSON.stringify({ channels: updatedChannels }),
-    );
-  }
-
-  checkIfChannelExists(channel: string) {
-    const { channels } = this.readChannels();
-    if (channels.includes(channel)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  readChannels() {
-    if (!fs.existsSync(this.filename)) {
-      fs.writeFileSync(this.filename, JSON.stringify({ channels: [] }));
-    }
-
-    const channels = fs.readFileSync(this.filename, 'utf-8');
-    return JSON.parse(channels);
   }
 }

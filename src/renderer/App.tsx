@@ -16,7 +16,7 @@ export default function App() {
 
   useEffect(() => {
     window.electron.ipcRenderer.on('readChannels', (arg: any) => {
-      setChannels(arg.channels);
+      setChannels(arg);
     });
     window.electron.ipcRenderer.sendMessage('readChannels');
   }, []);
