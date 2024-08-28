@@ -25,7 +25,7 @@ export default class DatabaseManager {
         name TEXT NOT NULL
       )`);
         this.db.run(`CREATE TABLE IF NOT EXISTS messages (
-        id INTEGER PRIMARY KEY,
+        ID TEXT UNIQUE NOT NULL,
         channel TEXT NOT NULL,
         nickname TEXT NOT NULL,
         color TEXT NOT NULL,

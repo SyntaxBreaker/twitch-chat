@@ -7,7 +7,7 @@ export default class MessageManager extends DatabaseManager {
   }
 
   addMessage(data: MessageItem) {
-    const { channel, nickname, color, mod, sub, vip, message } = data;
+    const { ID, channel, nickname, color, mod, sub, vip, message } = data;
 
     function formatMessage(message: string) {
       const emoticonRegex =
@@ -36,6 +36,7 @@ export default class MessageManager extends DatabaseManager {
     const formattedMessage = formatMessage(message);
 
     const newMessage = [
+      ID,
       channel,
       nickname,
       color,
@@ -47,8 +48,8 @@ export default class MessageManager extends DatabaseManager {
 
     this.db.run(
       `
-      INSERT INTO messages (channel, nickname, color, message, mod, sub, vip)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT OR IGNORE INTO messages (ID, channel, nickname, color, message, mod, sub, vip)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `,
       newMessage,
     );

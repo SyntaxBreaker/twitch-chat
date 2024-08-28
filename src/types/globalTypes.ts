@@ -1,5 +1,5 @@
 interface MessageItem {
-  id: string;
+  ID: string;
   channel?: string;
   nickname: string;
   color: string;
