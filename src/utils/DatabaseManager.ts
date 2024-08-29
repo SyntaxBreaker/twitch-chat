@@ -12,8 +12,7 @@ export default class DatabaseManager {
       sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
       (err) => {
         if (err) {
-          console.log(err.message);
-          return;
+          throw new Error(err.message);
         }
 
         this.db.run(`CREATE TABLE IF NOT EXISTS channels (
