@@ -1,5 +1,6 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
+import { app } from 'electron';
 
 const filename = 'database.db';
 
@@ -8,7 +9,7 @@ export default class DatabaseManager {
 
   constructor() {
     this.db = new sqlite3.Database(
-      path.resolve(__dirname, `../../${filename}`),
+      path.join(app.getPath("appData"), filename),
       sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
       (err) => {
         if (err) {
