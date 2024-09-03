@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
 import '../../styles/Tab.scss';
-import ContextMenu from '../ContextMenu';
+import ChannelContextMenu from '../ChannelContextMenu';
 
 interface TabProps {
   channel: string;
-  contextMenu: { channel: string; active: boolean };
-  setContextMenu: React.Dispatch<
+  channelContextMenu: { channel: string; active: boolean };
+  setChannelContextMenu: React.Dispatch<
     React.SetStateAction<{
       channel: string;
       active: boolean;
     }>
   >;
-  handleContextMenu: (
+  handleChannelContextMenu: (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     channel: string,
   ) => void;
@@ -19,21 +19,24 @@ interface TabProps {
 
 function Tab({
   channel,
-  contextMenu,
-  setContextMenu,
-  handleContextMenu,
+  channelContextMenu,
+  setChannelContextMenu,
+  handleChannelContextMenu,
 }: TabProps) {
   return (
     <>
       <Link
         to={`/${channel}`}
         className="tab"
-        onContextMenu={(e) => handleContextMenu(e, channel)}
+        onContextMenu={(e) => handleChannelContextMenu(e, channel)}
       >
         {channel}
       </Link>
-      {contextMenu.active && contextMenu.channel === channel && (
-        <ContextMenu channel={channel} setContextMenu={setContextMenu} />
+      {channelContextMenu.active && channelContextMenu.channel === channel && (
+        <ChannelContextMenu
+          channel={channel}
+          setChannelContextMenu={setChannelContextMenu}
+        />
       )}
     </>
   );

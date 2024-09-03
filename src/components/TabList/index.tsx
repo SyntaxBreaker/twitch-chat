@@ -8,19 +8,19 @@ interface Props {
 
 const TabList = React.forwardRef<HTMLDivElement, Props>(
   function TabList(props, ref) {
-    const [contextMenu, setContextMenu] = useState({
+    const [channelContextMenu, setChannelContextMenu] = useState({
       channel: '',
       active: false,
     });
 
     const { channels } = props;
 
-    const handleContextMenu = (
+    const handleChannelContextMenu = (
       e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
       channel: string,
     ) => {
       e.preventDefault();
-      setContextMenu((prev) => ({
+      setChannelContextMenu((prev) => ({
         ...prev,
         channel: channel,
         active: true,
@@ -36,9 +36,9 @@ const TabList = React.forwardRef<HTMLDivElement, Props>(
         {props.channels?.map((channel) => (
           <Tab
             channel={channel.replace('#', '')}
-            contextMenu={contextMenu}
-            setContextMenu={setContextMenu}
-            handleContextMenu={handleContextMenu}
+            channelContextMenu={channelContextMenu}
+            setChannelContextMenu={setChannelContextMenu}
+            handleChannelContextMenu={handleChannelContextMenu}
             key={channel}
           />
         ))}

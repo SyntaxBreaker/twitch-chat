@@ -1,11 +1,11 @@
-import '../../styles/ContextMenu.scss';
+import '../../styles/ChannelContextMenu.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { useModalContext } from '../../context/ModalContext';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   channel: string;
-  setContextMenu: React.Dispatch<
+  setChannelContextMenu: React.Dispatch<
     React.SetStateAction<{
       channel: string;
       active: boolean;
@@ -13,9 +13,9 @@ interface IProps {
   >;
 }
 
-function ContextMenu({ channel, setContextMenu }: IProps) {
+function ChannelContextMenu({ channel, setChannelContextMenu }: IProps) {
   const ref = useOutsideClick<HTMLDivElement>(() =>
-    setContextMenu((prev) => ({
+    setChannelContextMenu((prev) => ({
       ...prev,
       channel: '',
       active: false,
@@ -31,16 +31,16 @@ function ContextMenu({ channel, setContextMenu }: IProps) {
   };
 
   return (
-    <div className="contextMenu" ref={ref}>
+    <div className="channelContextMenu" ref={ref}>
       <button
-        className="contextMenu__button"
+        className="channelContextMenu__button"
         onClick={() => {
           setModal((prev) => ({
             ...prev,
             channel: channel,
             isModalOpen: true,
           }));
-          setContextMenu((prev) => ({
+          setChannelContextMenu((prev) => ({
             channel: '',
             active: false,
           }));
@@ -48,11 +48,11 @@ function ContextMenu({ channel, setContextMenu }: IProps) {
       >
         Edit
       </button>
-      <button className="contextMenu__button" onClick={removeChannel}>
+      <button className="channelContextMenu__button" onClick={removeChannel}>
         Remove
       </button>
     </div>
   );
 }
 
-export default ContextMenu;
+export default ChannelContextMenu;
