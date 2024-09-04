@@ -1,4 +1,4 @@
-import '../../styles/ChannelContextMenu.scss';
+import '../../styles/ContextMenu.scss';
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { useModalContext } from '../../context/ModalContext';
 import { useNavigate } from 'react-router-dom';
@@ -31,9 +31,9 @@ function ChannelContextMenu({ channel, setChannelContextMenu }: IProps) {
   };
 
   return (
-    <div className="channelContextMenu" ref={ref}>
+    <div className="contextMenu" ref={ref}>
       <button
-        className="channelContextMenu__button"
+        className="contextMenu__button"
         onClick={() => {
           setModal((prev) => ({
             ...prev,
@@ -48,7 +48,7 @@ function ChannelContextMenu({ channel, setChannelContextMenu }: IProps) {
       >
         Edit
       </button>
-      <button className="channelContextMenu__button" onClick={removeChannel}>
+      <button className="contextMenu__button" onClick={removeChannel}>
         Remove
       </button>
     </div>
