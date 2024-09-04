@@ -8,7 +8,7 @@ function Message({ message }: { message: MessageItem }) {
     sub: message.sub,
     vip: message.vip,
   })
-    .filter(([, value]) => value === true)
+    .filter(([, value]) => !!value === true)
     .map(([key]) => key) as BadgeType[];
 
   return (
