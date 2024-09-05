@@ -29,7 +29,7 @@ const TabList = React.forwardRef<HTMLDivElement, Props>(
 
     return (
       <div
-        className={channels.length > 0 ? 'tablist' : 'tablist--empty'}
+        className={channels.length > 0 ? 'tab-list' : 'tab-list--empty'}
         ref={ref}
         onClick={(e) => e.preventDefault()}
       >

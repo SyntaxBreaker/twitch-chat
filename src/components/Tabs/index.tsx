@@ -27,7 +27,7 @@ function Tabs({ channels }: { channels: string[] }) {
       <div className="tabs__container">
         {channels.length > 0 && (
           <button
-            className="tablist__button"
+            className="tab-list__button"
             onClick={() => scrollTabs('left')}
           >
             <img src={leftArrowIcon} alt="" />
@@ -36,7 +36,7 @@ function Tabs({ channels }: { channels: string[] }) {
         <TabList channels={channels} ref={myRef} />
         {channels.length > 0 && (
           <button
-            className="tablist__button"
+            className="tab-list__button"
             onClick={() => scrollTabs('right')}
           >
             <img src={rightArrowIcon} alt="" />

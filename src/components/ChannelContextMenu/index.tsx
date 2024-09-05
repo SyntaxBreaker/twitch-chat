@@ -31,9 +31,9 @@ function ChannelContextMenu({ channel, setChannelContextMenu }: IProps) {
   };
 
   return (
-    <div className="contextMenu" ref={ref}>
+    <div className="context-menu" ref={ref}>
       <button
-        className="contextMenu__button"
+        className="context-menu__button"
         onClick={() => {
           setModal((prev) => ({
             ...prev,
@@ -48,7 +48,7 @@ function ChannelContextMenu({ channel, setChannelContextMenu }: IProps) {
       >
         Edit
       </button>
-      <button className="contextMenu__button" onClick={removeChannel}>
+      <button className="context-menu__button" onClick={removeChannel}>
         Remove
       </button>
     </div>
