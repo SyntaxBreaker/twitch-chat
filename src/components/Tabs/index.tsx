@@ -1,46 +1,23 @@
 import { useRef } from 'react';
 import addIcon from '../../../assets/addIcon.svg';
-import leftArrowIcon from '../../../assets/leftArrowIcon.svg';
-import rightArrowIcon from '../../../assets/rightArrowIcon.svg';
 import '../../styles/Tabs.scss';
 import TabList from '../TabList';
 import { useModalContext } from '../../context/ModalContext';
+import ScrollButton from '../ScrollButton';
 
 function Tabs({ channels }: { channels: string[] }) {
   const { setModal } = useModalContext();
-  const myRef = useRef<HTMLDivElement>(null);
-
-  const scrollTabs = (direction: 'left' | 'right') => {
-    if (myRef.current) {
-      if (direction === 'left') {
-        myRef.current.scrollBy(-50, 0);
-      } else {
-        myRef.current.scrollBy(50, 0);
-      }
-    } else {
-      return;
-    }
-  };
+  const tabListRef = useRef<HTMLDivElement>(null);
 
   return (
     <nav className="tabs">
       <div className="tabs__container">
         {channels.length > 0 && (
-          <button
-            className="tab-list__button"
-            onClick={() => scrollTabs('left')}
-          >
-            <img src={leftArrowIcon} alt="" />
-          </button>
+          <ScrollButton tabListRef={tabListRef} direction={'left'} />
         )}
-        <TabList channels={channels} ref={myRef} />
+        <TabList channels={channels} ref={tabListRef} />
         {channels.length > 0 && (
-          <button
-            className="tab-list__button"
-            onClick={() => scrollTabs('right')}
-          >
-            <img src={rightArrowIcon} alt="" />
-          </button>
+          <ScrollButton tabListRef={tabListRef} direction={'right'} />
         )}
       </div>
       <button
