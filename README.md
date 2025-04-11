@@ -1,5 +1,5 @@
-# TwitchChat
-TwitchChat is an app that allows you to read a real-time Twitch chat.
+# Twitch Chat
+Twitch Chat is an app that allows you to read a real-time Twitch chat.
 
 
 ## Features
@@ -15,13 +15,13 @@ TwitchChat is an app that allows you to read a real-time Twitch chat.
 Clone the project
 
 ```bash
-  git clone https://github.com/SyntaxBreaker/TwitchChat.git
+  git clone git@github.com:SyntaxBreaker/twitch-chat.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd TwitchChat
+  cd twitch-chat
 ```
 
 Install dependencies
