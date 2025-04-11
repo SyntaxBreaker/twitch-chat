@@ -1,5 +1,6 @@
 {
-  "description": "TwitchChat is an app that allows you to read a real-time Twitch chat",
+  "name": "twitch-chat",
+  "description": "Twitch chat is an app that allows you to read a real-time Twitch chat",
   "author": "SyntaxBreaker",
   "main": "./src/main/main.ts",
   "scripts": {
@@ -143,7 +144,7 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "TwitchChat",
+    "productName": "twitch-chat",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -202,12 +203,8 @@
     "publish": {
       "provider": "github",
       "owner": "SyntaxBreaker",
-      "repo": "TwitchChat"
+      "repo": "twitch-chat"
     }
-  },
-  "devEngines": {
-    "node": ">=14.x",
-    "npm": ">=7.x"
   },
   "electronmon": {
     "patterns": [

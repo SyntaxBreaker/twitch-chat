@@ -1,7 +1,7 @@
 {
-  "name": "TwitchChat",
+  "name": "twitch-chat",
   "version": "1.0.0",
-  "description": "TwitchChat is an app that allows you to read a real-time Twitch chat",
+  "description": "Twitch chat is an app that allows you to read a real-time Twitch chat",
   "license": "MIT",
   "main": "./dist/main/main.js",
   "scripts": {
